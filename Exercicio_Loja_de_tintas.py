@@ -22,6 +22,7 @@ custo_lata = 80
 custo_galao = 25
 resto_galao = litros % galao
 
+
 #A Apenas lata:
 latas = litros/lata
 if litros%lata != 0:
@@ -63,11 +64,10 @@ elif litros < lata - galao:
     print(f'O custo total é: R${custo_total:.2f}\n.')
 
 else:
-
     qtde_lata = litros//lata
     resto_lata = (litros%lata)
     qtde_galao = resto_lata//galao + 1
-
+    
     if int(resto_lata) == 0:
         qtde_galao = 0
 
