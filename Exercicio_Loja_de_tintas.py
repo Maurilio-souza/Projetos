@@ -22,12 +22,12 @@ custo_lata = 80
 custo_galao = 25
 resto_galao = litros % galao
 
-
 #A Apenas lata:
 latas = litros/lata
 if litros%lata != 0:
     latas = litros//lata + 1
-print(f'\nSerá preciso {(litros):.2f}l de tinta.')
+print('\nAlternativa A')
+print(f'\nSerá preciso {litros:.2f}l de tinta.')
 print(f'Comprando só latas irá precisar de {latas:.0f} latas de tinta.')
 print(f'Irá sobrar {(lata*latas -litros):.2f}l de tinta.')
 print(f'custo total de R${latas*custo_lata:.2f}.')
@@ -37,42 +37,33 @@ print(f'custo total de R${latas*custo_lata:.2f}.')
 galoes = litros/galao
 if litros%galao != 0:
     galoes = litros//galao + 1
-print(f'\nSerá preciso {(litros):.2f}l de tinta.')
+print('\nAlternativa B')
+print(f'\nSerá preciso {litros:.2f}l de tinta.')
 print(f'Comprando só galoes irá precisar de {galoes:.0f} galões de tinta.')
 print(f'Irá sobrar {(galao*galoes-litros):.2f}l de tinta.')
 print(f'custo total de R${galoes*custo_galao:.2f}.')
 
 
 #C Latas e galoes
-litros *= margem_10_porcento
+litros = (area_pintada/area_litro)*margem_10_porcento
 resto_lata = litros % lata
+qtde_lata = litros//lata
+qtde_galao = resto_lata//galao + 1
+custo_total = qtde_lata*custo_lata + qtde_galao*custo_galao
 
-if resto_lata >= lata - galao:
-    qtde_lata = litros//lata + 1
-    custo_total = qtde_lata*custo_lata
-    print(f'\nSerá preciso {litros:.2f}l de tinta.')
-    print(f'Será preciso comprar {int(qtde_lata)} latas de tinta.')
-    print(f'Irá sobrar {(lata*qtde_lata-litros):.2f}l de tinta.')
-    print(f'O custo total é: R${custo_total:.2f}.')
+if int(resto_lata) == 0:
+    resto_lata = litros % lata
+    qtde_galao = 0
 
-elif litros < lata - galao:
-    qtde_galao = litros//galao + 1 
-    custo_total =qtde_galao*custo_galao
-    print(f'\nSerá preciso {litros:.2f}l de tinta.')
-    print(f'Será preciso comprar {qtde_galao:.0f} galão de tinta.')
-    print(f'Irá sobrar {(galao*qtde_galao-litros):.2f}l de tinta.')
-    print(f'O custo total é: R${custo_total:.2f}\n.')
+if area_pintada < 6:
+    qtde_galao = 1
 
-else:
-    qtde_lata = litros//lata
-    resto_lata = (litros%lata)
-    qtde_galao = resto_lata//galao + 1
-    
-    if int(resto_lata) == 0:
-        qtde_galao = 0
+sobra_tinta = ((qtde_galao*galao)+(qtde_lata*lata))-litros
+if sobra_tinta < 0:
+    sobra_tinta = 0
 
-    custo_total = qtde_lata*custo_lata + qtde_galao*custo_galao
-    print(f'\nSerá preciso {(litros):.2f}l de tinta.')
-    print(f'Será preciso comprar {qtde_lata:.0f} latas e {(qtde_galao):.0f} galão de tinta.')
-    print(f'Irá sobrar {((qtde_galao*galao)+(qtde_lata*lata))-litros:.2f}l de tinta.')
-    print(f'O custo total é: R${custo_total:.2f}.')
+print('\nAlternativa C')
+print(f'\nSerá preciso {(litros):.2f}l de tinta.')
+print(f'Será preciso comprar {qtde_lata:.0f} lata(s) e {qtde_galao:.0f} galão(ões) de tinta.')
+print(f'Irá sobrar {sobra_tinta:.2f}l de tinta.')
+print(f'O custo total é: R${custo_total:.2f}.')
